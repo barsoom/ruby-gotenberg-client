@@ -1,0 +1,25 @@
+# Configuration for the Rubocop code linting tool.
+#
+# It runs automatically from a post-commit hook (see .githooks/post-commit).
+#
+# To see or update the rules, modify it here and then update that gem in this repo: https://github.com/barsoom/barsoom_utils/blob/master/shared_rubocop.yml
+
+require: rubocop-rails
+
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  Exclude:
+    - '**/tmp/devbox/**/*'
+
+Layout/ClassStructure:
+  Exclude:
+    - 'unit/**/*'
+    - 'spec/**/*'
+
+inherit_gem:
+  barsoom_utils:
+    - shared_rubocop.yml
+    - shared_rubocop_rails.yml

@@ -32,6 +32,9 @@ Gem::Specification.new do |spec|
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "faraday"
   spec.add_dependency "faraday-multipart"
+  spec.add_development_dependency "barsoom_utils"
+  spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "rubocop-rails"
 
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html
