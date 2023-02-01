@@ -40,7 +40,8 @@ module Gotenberg
 
       payload = kwargs.merge(content)
 
-      url = "#{@api_url}/forms/chromium/convert/html" begin
+      url = "#{@api_url}/forms/chromium/convert/html"
+      begin
         conn = Faraday.new(url) do |f|
           f.request :multipart, flat_encode: true
           f.adapter :net_http
