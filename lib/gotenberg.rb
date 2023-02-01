@@ -53,7 +53,7 @@ module Gotenberg
           f.adapter :net_http
         end
         response = conn.post(url, payload)
-      rescue StandardError => e
+      rescue StandardError
         response = ""
       end
 

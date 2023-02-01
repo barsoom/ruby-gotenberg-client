@@ -22,14 +22,14 @@ module Faraday
         result = { errors: [], parts: [] }
 
         def result.part(name)
-          hash = self[:parts].detect { |h| h[:part].name == name }
-          [hash[:part], hash[:body].join]
+          hash = self[:parts].find { |h| h[:part].name == name }
+          [ hash[:part], hash[:body].join ]
         end
 
         reader.on_part do |part|
           result[:parts] << thispart = {
             part: part,
-            body: []
+            body: [],
           }
           part.on_data do |chunk|
             thispart[:body] << chunk

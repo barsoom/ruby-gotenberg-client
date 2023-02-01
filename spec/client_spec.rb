@@ -1,6 +1,6 @@
 
 RSpec.describe Gotenberg::Client do
-  let (:client) { described_class.new("http://gotenberg.example.com") }
+  let(:client) { described_class.new("http://gotenberg.example.com") }
   before do
     stub_request(:post, "http://gotenberg.example.com/forms/chromium/convert/html")
   end
