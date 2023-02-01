@@ -14,6 +14,9 @@ AllCops:
   Exclude:
     - '**/tmp/devbox/**/*'
 
+Style/StringLiterals:
+  Enabled: false
+
 Layout/ClassStructure:
   Exclude:
     - 'unit/**/*'
