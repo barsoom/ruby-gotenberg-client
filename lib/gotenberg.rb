@@ -18,6 +18,12 @@ module Gotenberg
   end
 
   class Client
+    PERMITTED_OPTIONS = {
+      prefer_css_page_size: "preferCssPageSize",
+      margin_top: "marginTop",
+      margin_bottom: "marginBottom",
+    }
+
     def initialize(api_url)
       @api_url = api_url
     end
@@ -38,7 +44,7 @@ module Gotenberg
         ),
       }
 
-      payload = kwargs.merge(content)
+      payload = content.merge(filter_and_transform_params(**kwargs))
 
       url = "#{@api_url}/forms/chromium/convert/html"
       begin
@@ -67,8 +73,19 @@ module Gotenberg
       end
 
       response.code == "200" && JSON.parse(response.body)["status"] == "up"
-    rescue
+    rescue StandardError
       false
+    end
+
+    private
+
+    # Takes the parameters passed in to #html, filters out the ones we don't want to use
+    # And transforms them from snake_case to the corresponding camelCased API parameter for Gotenberg
+    #
+    # @param params [Hash] with snake_cased symbols as keys
+    # @return a Hash containing the stringified and camelCased keys with the original values
+    def filter_and_transform_params(**params)
+      params.select { PERMITTED_OPTIONS.key?(_1) }.transform_keys { PERMITTED_OPTIONS[_1] }
     end
   end
 end

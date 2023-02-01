@@ -50,15 +50,26 @@ RSpec.describe Gotenberg::Client do
         expect(a_request(:post, "http://gotenberg.example.com/forms/chromium/convert/html")).to have_been_made
       end
 
-      it "forwards options to the API" do
-        result = client.html("<html />", StringIO.new, preferCssPageSize: true)
+      it "forwards accepted options to the API" do
+        client.html("<html />", StringIO.new, prefer_css_page_size: true)
 
         expect(WebMock).to have_requested(:post, "http://gotenberg.example.com/forms/chromium/convert/html")
-        .with { |request|
-          parsed_request = parse_multipart_message(request)
-          interesting_part = parsed_request[:parts].find { _1[:part].name == "preferCssPageSize" }
-          expect(interesting_part[:body]).to eq(["true"])
-        }
+          .with { |request|
+            parsed_request = parse_multipart_message(request)
+            interesting_part = parsed_request[:parts].find { _1[:part].name == "preferCssPageSize" }
+            expect(interesting_part[:body]).to eq([ "true" ])
+          }
+      end
+
+      it "filters out unwanted options" do
+        client.html("<html />", StringIO.new, drop_all_production_tables: true)
+
+        expect(WebMock).to have_requested(:post, "http://gotenberg.example.com/forms/chromium/convert/html")
+          .with { |request|
+            parsed_request = parse_multipart_message(request)
+            has_bad_parts = parsed_request[:parts].any? { _1[:part].name == "dropAllProductionTables" }
+            expect(has_bad_parts).to be(false)
+          }
       end
     end
   end
