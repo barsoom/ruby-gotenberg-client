@@ -22,6 +22,8 @@ module Gotenberg
       prefer_css_page_size: "preferCssPageSize",
       margin_top: "marginTop",
       margin_bottom: "marginBottom",
+      margin_left: "marginLeft",
+      margin_right: "marginRight",
     }
 
     def initialize(api_url)
