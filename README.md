@@ -1,3 +1,9 @@
+**NO LONGER MAINTAINED**
+
+We switched to using the [Gotenberg Ruby gem](https://github.com/sanzstez/gotenberg-ruby) in [this commit](https://github.com/barsoom/auctionet/commit/0d9782e1204).
+
+---
+
 # Gotenberg client for Ruby
 
 [Gotenberg] is awesome, but using it with Ruby is complicated.
